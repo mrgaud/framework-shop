@@ -6,8 +6,13 @@ import "./Cart.css";
 import { checkout } from "../../ducks/product";
 
 import CartItem from "./CartItem/CartItem";
+import {Link} from 'react-router-dom'
 
 export function Cart( { checkout, history, productsInCart } ) {
+	function checkoutAndRedirect(){
+		checkout(productsInCart)
+		history.push('/thank-you')
+	}
 	const products = productsInCart.map( product => (
 		<CartItem
 			key={ product.id }
@@ -30,9 +35,10 @@ export function Cart( { checkout, history, productsInCart } ) {
 							<div className="cart__total">
 								${ cartTotal }
 							</div>
-							<button className="cart__checkout">Checkout</button>
+							<button className="cart__checkout" onClick={checkoutAndRedirect}>Checkout</button>
 						</main>
 			}
+			<Link to='/shop'><p>Back to store</p></Link>
 		</div>
 	);
 }
